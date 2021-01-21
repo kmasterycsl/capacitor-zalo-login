@@ -14,7 +14,7 @@ import com.zing.zalo.zalosdk.kotlin.oauth.LoginVia
 import com.zing.zalo.zalosdk.kotlin.oauth.ZaloSDK
 import java.security.MessageDigest
 
-@NativePlugin
+@NativePlugin(requestCodes = [Constant.ZALO_AUTHENTICATE_REQUEST_CODE])
 class ZaloLogin : Plugin() {
     private lateinit var zaloSDK: ZaloSDK
 
@@ -51,11 +51,7 @@ class ZaloLogin : Plugin() {
     }
 
     override fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.handleOnActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun handleOnResume() {
-        super.handleOnResume()
+        zaloSDK.onActivityResult(activity, requestCode, resultCode, data);
     }
 
 
