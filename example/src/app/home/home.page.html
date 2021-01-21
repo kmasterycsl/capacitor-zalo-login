@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Capacitor Zalo Login Demo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">
+        Capacitor Zalo Login Demo
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-button (click)="login()">Login</ion-button>
+    <ion-button (click)="logout()">Logout</ion-button>
+    <ion-button (click)="getProfile()">Get profile</ion-button>
+    <ion-button (click)="clearOutput()">Clear output</ion-button>
+    <ion-button *ngIf="canGetHashKey" (click)="getHashKey()">Get application hash key</ion-button>
+    <div>
+      <code>
+        {{ response | json }}
+      </code>
+    </div>
+  </div>
+</ion-content>

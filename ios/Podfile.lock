@@ -1,0 +1,32 @@
+PODS:
+  - Capacitor (2.4.6):
+    - CapacitorCordova
+  - CapacitorCordova (2.4.6)
+  - ZaloSDK (2.5.1009):
+    - ZaloSDK/Core (= 2.5.1009)
+    - ZaloSDK/Main (= 2.5.1009)
+  - ZaloSDK/Core (2.5.1009)
+  - ZaloSDK/Main (2.5.1009):
+    - ZaloSDK/Core
+
+DEPENDENCIES:
+  - "Capacitor (from `../node_modules/@capacitor/ios`)"
+  - "CapacitorCordova (from `../node_modules/@capacitor/ios`)"
+  - ZaloSDK (from `../../ZaloSDK-iOS`)
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../node_modules/@capacitor/ios"
+  CapacitorCordova:
+    :path: "../node_modules/@capacitor/ios"
+  ZaloSDK:
+    :path: "../../ZaloSDK-iOS"
+
+SPEC CHECKSUMS:
+  Capacitor: 0f131577d41c082931f00cc080e2289d503465c8
+  CapacitorCordova: 3375b39b5ebca770ac7869f85e4dea32a642c9e0
+  ZaloSDK: 0da456bf02a77e927bca1501d9df464d61c06d55
+
+PODFILE CHECKSUM: 0caf95d4386723ca60bf067546f568c4a6c14ffe
+
+COCOAPODS: 1.10.0
