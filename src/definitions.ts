@@ -4,6 +4,17 @@ declare module '@capacitor/core' {
   }
 }
 
+export enum LoginVia {
+  APP = 'APP',
+  WEB = 'APP',
+  APP_OR_WEB = 'APP_OR_WEB',
+}
+export interface IZaloUser {
+  uid: string;
+  displayName: string;
+  code: string;
+}
 export interface ZaloLoginPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  login(options: { loginVia: LoginVia }): Promise<IZaloUser>;
+  getApplicationHashKey(): Promise<{ signature: string }>;
 }

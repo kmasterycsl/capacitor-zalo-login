@@ -1,5 +1,5 @@
 import { WebPlugin } from '@capacitor/core';
-import { ZaloLoginPlugin } from './definitions';
+import { IZaloUser, LoginVia, ZaloLoginPlugin } from './definitions';
 
 export class ZaloLoginWeb extends WebPlugin implements ZaloLoginPlugin {
   constructor() {
@@ -9,9 +9,13 @@ export class ZaloLoginWeb extends WebPlugin implements ZaloLoginPlugin {
     });
   }
 
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
+  login(options: { loginVia: LoginVia }): Promise<IZaloUser> {
+    return Promise.resolve({} as IZaloUser);
+  }
+
+
+  getApplicationHashKey() {
+    return Promise.reject('Application hash key is not available in web environment.');
   }
 }
 

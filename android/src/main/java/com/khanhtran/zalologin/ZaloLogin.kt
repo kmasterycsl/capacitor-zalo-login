@@ -12,6 +12,8 @@ import com.zing.zalo.zalosdk.kotlin.oauth.Constant
 import com.zing.zalo.zalosdk.kotlin.oauth.IAuthenticateCompleteListener
 import com.zing.zalo.zalosdk.kotlin.oauth.LoginVia
 import com.zing.zalo.zalosdk.kotlin.oauth.ZaloSDK
+import com.zing.zalo.zalosdk.kotlin.oauth.model.ErrorResponse
+import java.lang.Exception
 import java.security.MessageDigest
 
 @NativePlugin(requestCodes = [Constant.ZALO_AUTHENTICATE_REQUEST_CODE])
@@ -23,29 +25,59 @@ class ZaloLogin : Plugin() {
     }
 
     @PluginMethod
-    fun echo(call: PluginCall) {
-        val ctx = context
-        Toast.makeText(ctx, "hello my friend", Toast.LENGTH_LONG).show()
-        zaloSDK.authenticate(activity, LoginVia.WEB, authenticateListener);
+    fun login(call: PluginCall) {
+        val viaString = call.getString("loginVia", "APP_OR_WEB");
+        val viaEnum: LoginVia;
+        when (viaString) {
+            "APP_OR_WEB" -> viaEnum = LoginVia.APP_OR_WEB;
+            "APP" -> viaEnum = LoginVia.APP;
+            "WEB" -> viaEnum = LoginVia.WEB;
+            else -> { // Note the block
+                throw Exception("loginVia is not valid");
+            }
+        }
+        saveCall(call);
+        zaloSDK.authenticate(activity, viaEnum, authenticateListener);
     }
 
     private val authenticateListener = object : IAuthenticateCompleteListener {
-        @SuppressLint("SetTextI18n")
         override fun onAuthenticateSuccess(uid: Long, code: String, data: Map<String, Any>) {
-            activity.runOnUiThread() {
-                val displayName = data[Constant.user.DISPLAY_NAME]
-                Toast.makeText(context, displayName.toString(), Toast.LENGTH_LONG).show()
+            if (savedLastCall == null) {
+                return;
             }
-            val displayName = data[Constant.user.DISPLAY_NAME]
-            Toast.makeText(context, displayName.toString(), Toast.LENGTH_LONG).show()
+            val jsData = JSObject();
+            jsData.put("displayName", data[Constant.user.DISPLAY_NAME]);
+            jsData.put("uid", uid);
+            jsData.put("code", code);
+            savedLastCall.resolve(jsData);
         }
 
         override fun onAuthenticateError(errorCode: Int, message: String) {
-            activity.runOnUiThread() {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            if (savedLastCall == null) {
+                return;
             }
-            if (!TextUtils.isEmpty(message)) {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            savedLastCall.reject(message);
+        }
+
+        override fun onAuthenticateError(errorCode: Int, errorMsg: String?, errorResponse: ErrorResponse) {
+            if (savedLastCall == null) {
+                return;
+            }
+            savedLastCall.reject(errorMsg);
+        }
+    }
+
+    @PluginMethod
+    fun getApplicationHashKey(call: PluginCall) {
+        val info = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
+        for (signature in info.signatures) {
+            val md = MessageDigest.getInstance("SHA")
+            md.update(signature.toByteArray())
+            val sig = Base64.encodeToString(md.digest(), Base64.DEFAULT).trim { it <= ' ' }
+            if (sig.trim { it <= ' ' }.length > 0) {
+                val data = JSObject();
+                data.put("signature", sig);
+                call.resolve(data);
             }
         }
     }
@@ -53,18 +85,4 @@ class ZaloLogin : Plugin() {
     override fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         zaloSDK.onActivityResult(activity, requestCode, resultCode, data);
     }
-
-
-    val applicationHashKey: Unit
-        get() {
-            val info = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
-            for (signature in info.signatures) {
-                val md = MessageDigest.getInstance("SHA")
-                md.update(signature.toByteArray())
-                val sig = Base64.encodeToString(md.digest(), Base64.DEFAULT).trim { it <= ' ' }
-                if (sig.trim { it <= ' ' }.length > 0) {
-                    Toast.makeText(getContext(), sig, Toast.LENGTH_LONG);
-                }
-            }
-        }
 }
