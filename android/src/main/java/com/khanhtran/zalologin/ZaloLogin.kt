@@ -1,18 +1,17 @@
 package com.khanhtran.zalologin
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.text.TextUtils
 import android.util.Base64
-import android.widget.Toast
 import com.getcapacitor.*
-import com.zing.zalo.zalosdk.kotlin.core.module.ZaloSDKInitProvider
 import com.zing.zalo.zalosdk.kotlin.oauth.Constant
 import com.zing.zalo.zalosdk.kotlin.oauth.IAuthenticateCompleteListener
 import com.zing.zalo.zalosdk.kotlin.oauth.LoginVia
 import com.zing.zalo.zalosdk.kotlin.oauth.ZaloSDK
 import com.zing.zalo.zalosdk.kotlin.oauth.model.ErrorResponse
+import com.zing.zalo.zalosdk.kotlin.openapi.ZaloOpenApi;
+import com.zing.zalo.zalosdk.kotlin.openapi.ZaloOpenApiCallback
+import org.json.JSONObject
 import java.lang.Exception
 import java.security.MessageDigest
 
@@ -45,11 +44,9 @@ class ZaloLogin : Plugin() {
             if (savedLastCall == null) {
                 return;
             }
-            val jsData = JSObject();
-            jsData.put("displayName", data[Constant.user.DISPLAY_NAME]);
-            jsData.put("uid", uid);
-            jsData.put("code", code);
-            savedLastCall.resolve(jsData);
+            val openApi = ZaloOpenApi(context, code);
+            val fields = arrayOf("id", "birthday", "gender", "picture", "name");
+            openApi.getProfile(fields, getProfileListener);
         }
 
         override fun onAuthenticateError(errorCode: Int, message: String) {
@@ -64,6 +61,15 @@ class ZaloLogin : Plugin() {
                 return;
             }
             savedLastCall.reject(errorMsg);
+        }
+    }
+
+    private val getProfileListener = object : ZaloOpenApiCallback {
+        override fun onResult(data: JSONObject?) {
+            if (savedLastCall == null) {
+                return;
+            }
+            savedLastCall.resolve(JSObject.fromJSONObject(data));
         }
     }
 

@@ -10,9 +10,15 @@ export enum LoginVia {
   APP_OR_WEB = 'APP_OR_WEB',
 }
 export interface IZaloUser {
-  uid: string;
-  displayName: string;
-  code: string;
+  id: string;
+  name: string;
+  gender: string;
+  birthday: string;
+  picture: {
+    data: {
+      url: string;
+    }
+  };
 }
 export interface ZaloLoginPlugin {
   login(options: { loginVia: LoginVia }): Promise<IZaloUser>;
