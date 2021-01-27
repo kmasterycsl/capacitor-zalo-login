@@ -85,7 +85,7 @@ class ZaloLogin : Plugin() {
                 data.put("signature", sig);
                 call.resolve(data);
             } else {
-                call.reject();
+                call.reject("Signature is not available.");
             }
         }
     }
