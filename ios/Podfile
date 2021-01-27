@@ -9,6 +9,7 @@ end
 
 target 'Plugin' do
   capacitor_pods
+  pod 'ZaloSDK'
 end
 
 target 'PluginTests' do

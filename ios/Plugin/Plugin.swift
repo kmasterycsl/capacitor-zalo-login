@@ -1,5 +1,6 @@
 import Foundation
 import Capacitor
+import ZaloSDK
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
@@ -7,11 +8,29 @@ import Capacitor
  */
 @objc(ZaloLogin)
 public class ZaloLogin: CAPPlugin {
-
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
-        call.success([
-            "value": value
-        ])
+    private let zaloSDK =  ZaloSDK()
+    public override func load() {
+    }
+    
+    
+    @objc func login(_  call: CAPPluginCall) {
+        zaloSDK.authenticateZalo(with: ZAZAloSDKAuthenTypeViaZaloAppAndWebView, parentController: self.bridge.viewController) { (response) in
+            self.onAuthenticateComplete(with: response, call: call)
+        }
+    }
+    
+    func onAuthenticateComplete(with response: ZOOauthResponseObject?, call: CAPPluginCall) {
+        if response?.isSucess == true {
+            call.resolve([
+                "oauthCode": response?.oauthCode,
+                "userId": response?.userId,
+                "displayName": response?.displayName,
+                "phoneNumber": response?.phoneNumber,
+                "dob": response?.dob,
+                "gender": response?.gender,
+            ])
+        } else if let response = response,
+             response.errorCode != -1001 { // not cancel
+        }
     }
 }
