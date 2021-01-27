@@ -1,7 +1,7 @@
 {
   "name": "capacitor-zalo-login",
   "version": "0.0.1",
-  "description": "Plugin for login Zalo",
+  "description": "Capacitor plugin for login Zalo",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",

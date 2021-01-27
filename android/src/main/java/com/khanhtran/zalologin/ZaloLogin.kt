@@ -84,6 +84,8 @@ class ZaloLogin : Plugin() {
                 val data = JSObject();
                 data.put("signature", sig);
                 call.resolve(data);
+            } else {
+                call.reject();
             }
         }
     }
