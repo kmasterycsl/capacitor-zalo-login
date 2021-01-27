@@ -1,4 +1,4 @@
-package com.khanhtran.zalologin
+package com.khanhtran.capacitorplugins.zalologin
 
 import android.content.Intent
 import android.content.pm.PackageManager
