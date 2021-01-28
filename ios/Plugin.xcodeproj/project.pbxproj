@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		50ADFF92201F53D600D50D53 /* Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ADFF88201F53D600D50D53 /* Plugin.framework */; };
+		0AA17A0C25C3177C00C70399 /* Pods_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920E020FA80A3C5EE6FCEC57 /* Pods_Plugin.framework */; };
+		0AA17A1125C3178000C70399 /* ZaloSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA1796025C30C5F00C70399 /* ZaloSDKCoreKit.framework */; };
+		0AA17A1325C3178200C70399 /* ZingAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA1796125C30C5F00C70399 /* ZingAnalytics.framework */; };
+		0AA17A2325C3184400C70399 /* ZaloSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA1795F25C30C5F00C70399 /* ZaloSDK.framework */; };
+		0AA17A2425C3184400C70399 /* ZaloSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA1795F25C30C5F00C70399 /* ZaloSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		50ADFF97201F53D600D50D53 /* PluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADFF96201F53D600D50D53 /* PluginTests.swift */; };
 		50ADFF99201F53D600D50D53 /* Plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 50ADFF8B201F53D600D50D53 /* Plugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50ADFFA82020EE4F00D50D53 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ADFFA72020EE4F00D50D53 /* Plugin.m */; };
 		50E1A94820377CB70090CE1A /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E1A94720377CB70090CE1A /* Plugin.swift */; };
 		B5C57D21683CCBF40A8F00D9 /* Pods_PluginTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D221B466D7BE47CC9CB2CC /* Pods_PluginTests.framework */; };
-		FC3D5DB66E5B59E226D82B6C /* Pods_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920E020FA80A3C5EE6FCEC57 /* Pods_Plugin.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,11 +29,28 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0AA17A2525C3184400C70399 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0AA17A2425C3184400C70399 /* ZaloSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		50ADFF88201F53D600D50D53 /* Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AA1795F25C30C5F00C70399 /* ZaloSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZaloSDK.framework; sourceTree = "<group>"; };
+		0AA1796025C30C5F00C70399 /* ZaloSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZaloSDKCoreKit.framework; sourceTree = "<group>"; };
+		0AA1796125C30C5F00C70399 /* ZingAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZingAnalytics.framework; sourceTree = "<group>"; };
+		0AA17A0B25C3177C00C70399 /* Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ADFF8B201F53D600D50D53 /* Plugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
 		50ADFF8C201F53D600D50D53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50ADFF91201F53D600D50D53 /* PluginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PluginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		50ADFF91201F53D600D50D53 /* PluginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PluginTests.xctest; path = "/Users/k/Code/capacitor-zalo-login/ios/build/Debug-iphoneos/PluginTests.xctest"; sourceTree = "<absolute>"; };
 		50ADFF96201F53D600D50D53 /* PluginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginTests.swift; sourceTree = "<group>"; };
 		50ADFF98201F53D600D50D53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50ADFFA72020EE4F00D50D53 /* Plugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Plugin.m; sourceTree = "<group>"; };
@@ -48,7 +68,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC3D5DB66E5B59E226D82B6C /* Pods_Plugin.framework in Frameworks */,
+				0AA17A0C25C3177C00C70399 /* Pods_Plugin.framework in Frameworks */,
+				0AA17A2325C3184400C70399 /* ZaloSDK.framework in Frameworks */,
+				0AA17A1125C3178000C70399 /* ZaloSDKCoreKit.framework in Frameworks */,
+				0AA17A1325C3178200C70399 /* ZingAnalytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +79,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50ADFF92201F53D600D50D53 /* Plugin.framework in Frameworks */,
 				B5C57D21683CCBF40A8F00D9 /* Pods_PluginTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,19 +91,10 @@
 			children = (
 				50ADFF8A201F53D600D50D53 /* Plugin */,
 				50ADFF95201F53D600D50D53 /* PluginTests */,
-				50ADFF89201F53D600D50D53 /* Products */,
 				8C8E7744173064A9F6D438E3 /* Pods */,
 				A797B9EFA3DCEFEA1FBB66A9 /* Frameworks */,
+				0AA17A0B25C3177C00C70399 /* Plugin.framework */,
 			);
-			sourceTree = "<group>";
-		};
-		50ADFF89201F53D600D50D53 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				50ADFF88201F53D600D50D53 /* Plugin.framework */,
-				50ADFF91201F53D600D50D53 /* PluginTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		50ADFF8A201F53D600D50D53 /* Plugin */ = {
@@ -118,6 +131,9 @@
 		A797B9EFA3DCEFEA1FBB66A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0AA1795F25C30C5F00C70399 /* ZaloSDK.framework */,
+				0AA1796025C30C5F00C70399 /* ZaloSDKCoreKit.framework */,
+				0AA1796125C30C5F00C70399 /* ZingAnalytics.framework */,
 				920E020FA80A3C5EE6FCEC57 /* Pods_Plugin.framework */,
 				95D221B466D7BE47CC9CB2CC /* Pods_PluginTests.framework */,
 			);
@@ -147,6 +163,7 @@
 				50ADFF84201F53D600D50D53 /* Frameworks */,
 				50ADFF85201F53D600D50D53 /* Headers */,
 				50ADFF86201F53D600D50D53 /* Resources */,
+				0AA17A2525C3184400C70399 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,7 +171,7 @@
 			);
 			name = Plugin;
 			productName = Plugin;
-			productReference = 50ADFF88201F53D600D50D53 /* Plugin.framework */;
+			productReference = 0AA17A0B25C3177C00C70399 /* Plugin.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		50ADFF90201F53D600D50D53 /* PluginTests */ = {
@@ -207,7 +224,7 @@
 				en,
 			);
 			mainGroup = 50ADFF7E201F53D600D50D53;
-			productRefGroup = 50ADFF89201F53D600D50D53 /* Products */;
+			productRefGroup = 50ADFF7E201F53D600D50D53;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -326,6 +343,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					i386,
+					x86_64,
+				);
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -355,8 +377,10 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -375,8 +399,10 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALIDATE_WORKSPACE = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -386,6 +412,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					i386,
+					x86_64,
+				);
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -415,8 +446,10 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -428,8 +461,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
+				VALIDATE_WORKSPACE = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -446,6 +481,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Plugin/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -471,6 +510,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Plugin/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
