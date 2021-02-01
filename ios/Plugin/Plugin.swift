@@ -14,13 +14,14 @@ public class ZaloLogin: CAPPlugin {
     
     
     @objc func login(_  call: CAPPluginCall) {
-        zaloSDK?.authenticateZalo(with: ZAZAloSDKAuthenTypeViaZaloAppAndWebView, parentController: self.bridge.viewController) { (response) in
-            self.onAuthenticateComplete(with: response, call: call)
+        DispatchQueue.main.async {
+            self.zaloSDK?.authenticateZalo(with: ZAZAloSDKAuthenTypeViaZaloAppAndWebView, parentController: self.bridge.viewController) { (response) in
+                self.onAuthenticateComplete(with: response, call: call)
+            }
         }
     }
     
     func onAuthenticateComplete(with response: ZOOauthResponseObject?, call: CAPPluginCall) {
-        
         if response?.isSucess == true {
             zaloSDK?.getZaloUserProfile(callback: { (response2) in
                 self.onGetProfileComplete(with: response2, call: call)
