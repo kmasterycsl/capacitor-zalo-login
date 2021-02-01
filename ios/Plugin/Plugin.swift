@@ -8,13 +8,13 @@ import ZaloSDK
  */
 @objc(ZaloLogin)
 public class ZaloLogin: CAPPlugin {
-    private let zaloSDK =  ZaloSDK()
+    private let zaloSDK =  ZaloSDK.sharedInstance()
     public override func load() {
     }
     
     
     @objc func login(_  call: CAPPluginCall) {
-        zaloSDK.authenticateZalo(with: ZAZAloSDKAuthenTypeViaZaloAppAndWebView, parentController: self.bridge.viewController) { (response) in
+        zaloSDK?.authenticateZalo(with: ZAZAloSDKAuthenTypeViaZaloAppAndWebView, parentController: self.bridge.viewController) { (response) in
             self.onAuthenticateComplete(with: response, call: call)
         }
     }
