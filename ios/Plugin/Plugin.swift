@@ -20,17 +20,23 @@ public class ZaloLogin: CAPPlugin {
     }
     
     func onAuthenticateComplete(with response: ZOOauthResponseObject?, call: CAPPluginCall) {
+        
         if response?.isSucess == true {
-            call.resolve([
-                "oauthCode": response?.oauthCode,
-                "userId": response?.userId,
-                "displayName": response?.displayName,
-                "phoneNumber": response?.phoneNumber,
-                "dob": response?.dob,
-                "gender": response?.gender,
-            ])
+            zaloSDK?.getZaloUserProfile(callback: { (response2) in
+                self.onGetProfileComplete(with: response2, call: call)
+            })
         } else if let response = response,
              response.errorCode != -1001 { // not cancel
         }
+    }
+    
+    func onGetProfileComplete(with response: ZOGraphResponseObject?, call: CAPPluginCall) {
+        call.resolve([
+            "id": response?.data["id"],
+            "name": response?.data["name"],
+            "gender": response?.data["gender"],
+            "birthday": response?.data["birthday"],
+            "picture": response?.data["picture"],
+        ])
     }
 }
