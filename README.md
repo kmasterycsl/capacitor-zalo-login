@@ -18,7 +18,7 @@
 	<string>xxxxxxxxxxxxxx</string>
 </dict>
 ```
-For more information visit https://developers.zalo.me/docs/sdk/ios-sdk/tich-hop/xcode-post-460
+- For more information visit https://developers.zalo.me/docs/sdk/ios-sdk/tich-hop/xcode-post-460
 
 ## For Web
 WIP

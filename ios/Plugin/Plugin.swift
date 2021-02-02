@@ -32,10 +32,17 @@ public class ZaloLogin: CAPPlugin {
         }
     }
     
+    @objc func logout(_  call: CAPPluginCall) {
+        DispatchQueue.main.async {
+            self.zaloSDK?.unauthenticate();
+            call.resolve();
+        }
+    }
+    
     func onAuthenticateComplete(with response: ZOOauthResponseObject?, call: CAPPluginCall) {
         if response?.isSucess == true {
             zaloSDK?.getZaloUserProfile(callback: { (profileResponse) in
-                self.onGetProfileComplete(with: profileResponse, call: call)
+                self.onGetProfileComplete(with: profileResponse, oauthResponse: response, call: call)
             })
         } else {
             if (response?.errorCode == -1001) {
@@ -46,7 +53,7 @@ public class ZaloLogin: CAPPlugin {
         }
     }
     
-    func onGetProfileComplete(with profileResponse: ZOGraphResponseObject?, call: CAPPluginCall) {
+    func onGetProfileComplete(with profileResponse: ZOGraphResponseObject?, oauthResponse: ZOOauthResponseObject?, call: CAPPluginCall) {
         if profileResponse?.isSucess == true {
             call.resolve([
                 "id": profileResponse?.data["id"] as Any,
@@ -54,6 +61,7 @@ public class ZaloLogin: CAPPlugin {
                 "gender": profileResponse?.data["gender"] as Any,
                 "birthday": profileResponse?.data["birthday"] as Any,
                 "picture": profileResponse?.data["picture"] as Any,
+                "oauthCode": oauthResponse?.oauthCode as Any,
             ])
         } else {
             call.reject(profileResponse?.errorMessage ?? "Can not get profile from oauth code.")

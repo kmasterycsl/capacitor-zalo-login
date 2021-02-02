@@ -31,4 +31,26 @@ export class HomePage {
       });
   }
 
+  logout() {
+    Plugins.ZaloLogin
+    .logout()
+    .then(() => {
+      this.zaloUser = null;
+      this.toastCtrl.create({
+        message: 'Logout ok',
+        color: 'primary',
+        duration: 2000
+      }).then(t => t.present());
+    })
+    .catch(e => {
+      this.toastCtrl.create({
+        message: e.message,
+        color: 'danger',
+        duration: 2000
+      }).then(t => t.present());
+
+      console.error('zaloLogout error:', e)
+    });
+  }
+
 }

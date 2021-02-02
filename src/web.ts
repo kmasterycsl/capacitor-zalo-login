@@ -14,6 +14,9 @@ export class ZaloLoginWeb extends WebPlugin implements ZaloLoginPlugin {
     return Promise.reject(`Web implementation is not available now.`);
   }
 
+  logout(): Promise<void> {
+    return Promise.reject(`Web implementation is not available now.`);
+  }
 
   getApplicationHashKey() {
     return Promise.reject('Application hash key is not available in web environment.');

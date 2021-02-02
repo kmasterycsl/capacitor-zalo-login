@@ -16,7 +16,8 @@
   </ion-header>
 
   <div id="container">
-    <ion-button (click)="login()">Tap to login Zalo</ion-button>
+    <ion-button *ngIf="!zaloUser" (click)="login()">Tap to login Zalo</ion-button>
+    <ion-button *ngIf="zaloUser" (click)="logout()">Tap to logout Zalo</ion-button>
     <div>
       <code>
         {{ zaloUser | json }}

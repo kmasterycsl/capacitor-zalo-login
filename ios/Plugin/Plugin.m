@@ -5,4 +5,5 @@
 // each method the plugin supports using the CAP_PLUGIN_METHOD macro.
 CAP_PLUGIN(ZaloLogin, "ZaloLogin",
            CAP_PLUGIN_METHOD(login, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(logout, CAPPluginReturnPromise);
 )

@@ -22,5 +22,6 @@ export interface IZaloUser {
 }
 export interface ZaloLoginPlugin {
   login(options?: { loginVia: LoginVia }): Promise<IZaloUser>;
+  logout(): Promise<void>;
   getApplicationHashKey(): Promise<{ signature: string }>;
 }
