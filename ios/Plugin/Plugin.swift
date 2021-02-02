@@ -9,7 +9,15 @@ import ZaloSDK
 @objc(ZaloLogin)
 public class ZaloLogin: CAPPlugin {
     private let zaloSDK =  ZaloSDK.sharedInstance()
+
     public override func load() {
+        let zaloAppId = Bundle.main.object(forInfoDictionaryKey: "ZaloAppId") as? String
+
+        if (zaloAppId == nil) {
+            print("Missing ZaloAppId in Info.plist.")
+        } else {
+            zaloSDK?.initialize(withAppId: zaloAppId)
+        }
     }
     
     
