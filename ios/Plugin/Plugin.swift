@@ -15,29 +15,40 @@ public class ZaloLogin: CAPPlugin {
     
     @objc func login(_  call: CAPPluginCall) {
         DispatchQueue.main.async {
-            self.zaloSDK?.authenticateZalo(with: ZAZAloSDKAuthenTypeViaZaloAppAndWebView, parentController: self.bridge.viewController) { (response) in
-                self.onAuthenticateComplete(with: response, call: call)
+            self.zaloSDK?.authenticateZalo(
+                with: ZAZAloSDKAuthenTypeViaZaloAppAndWebView,
+                parentController: self.bridge.viewController
+            ) { oauthResponse in
+                return self.onAuthenticateComplete(with: oauthResponse, call: call)
             }
         }
     }
     
     func onAuthenticateComplete(with response: ZOOauthResponseObject?, call: CAPPluginCall) {
         if response?.isSucess == true {
-            zaloSDK?.getZaloUserProfile(callback: { (response2) in
-                self.onGetProfileComplete(with: response2, call: call)
+            zaloSDK?.getZaloUserProfile(callback: { (profileResponse) in
+                self.onGetProfileComplete(with: profileResponse, call: call)
             })
-        } else if let response = response,
-             response.errorCode != -1001 { // not cancel
+        } else {
+            if (response?.errorCode == -1001) {
+                call.reject("User rejected.")
+            } else {
+                call.reject(response?.errorMessage ?? "Can not get oauth code.")
+            }
         }
     }
     
-    func onGetProfileComplete(with response: ZOGraphResponseObject?, call: CAPPluginCall) {
-        call.resolve([
-            "id": response?.data["id"],
-            "name": response?.data["name"],
-            "gender": response?.data["gender"],
-            "birthday": response?.data["birthday"],
-            "picture": response?.data["picture"],
-        ])
+    func onGetProfileComplete(with profileResponse: ZOGraphResponseObject?, call: CAPPluginCall) {
+        if profileResponse?.isSucess == true {
+            call.resolve([
+                "id": profileResponse?.data["id"] as Any,
+                "name": profileResponse?.data["name"] as Any,
+                "gender": profileResponse?.data["gender"] as Any,
+                "birthday": profileResponse?.data["birthday"] as Any,
+                "picture": profileResponse?.data["picture"] as Any,
+            ])
+        } else {
+            call.reject(profileResponse?.errorMessage ?? "Can not get profile from oauth code.")
+        }
     }
 }
