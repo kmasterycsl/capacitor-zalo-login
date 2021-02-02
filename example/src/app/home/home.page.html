@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Capacitor Zalo Login Demo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">
+        Capacitor Zalo Login Demo
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-button (click)="login()">Tap to login Zalo</ion-button>
+    <div>
+      <code>
+        {{ zaloUser | json }}
+      </code>
+    </div>
+  </div>
+</ion-content>

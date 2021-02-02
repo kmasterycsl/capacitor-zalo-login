@@ -9,8 +9,9 @@ export class ZaloLoginWeb extends WebPlugin implements ZaloLoginPlugin {
     });
   }
 
-  login(options: { loginVia: LoginVia }): Promise<IZaloUser> {
-    return Promise.resolve({} as IZaloUser);
+  //@ts-ignore
+  login(options?: { loginVia: LoginVia }): Promise<IZaloUser> {
+    return Promise.reject(`Web implementation is not available now.`);
   }
 
 
