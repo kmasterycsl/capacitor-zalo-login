@@ -7,7 +7,24 @@
 - Inside /example folder.
 
 ## For Android
+- In Zalo developer page -> products -> login -> android -> add your app's packageName, hashKey.
+- In your `android/app/src/main/java/io/ionic/starter/MainActivity.java` add `ZaloLogin` class
 
+```
+
+import com.khanhtran.capacitorplugins.zalologin.ZaloLogin;
+
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    // Initializes the Bridge
+    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
+      // Additional plugins you've installed go here
+      // Ex: add(TotallyAwesomePlugin.class);
+      add(ZaloLogin.class);
+    }});
+  }
+```
 ## For IOS
 - In Zalo developer page -> products -> login -> ios -> add your app's bundleId.
 - Open your `ios/App/App/info.plist`. Add `ZaloAppId`:

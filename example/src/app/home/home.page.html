@@ -20,6 +20,7 @@
     <ion-button (click)="logout()">Logout</ion-button>
     <ion-button (click)="getProfile()">Get profile</ion-button>
     <ion-button (click)="clearOutput()">Clear output</ion-button>
+    <ion-button *ngIf="canGetHashKey" (click)="getHashKey()">Get application hash key</ion-button>
     <div>
       <code>
         {{ response | json }}

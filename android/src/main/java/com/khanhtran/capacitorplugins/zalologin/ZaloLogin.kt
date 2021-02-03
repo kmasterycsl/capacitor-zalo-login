@@ -8,6 +8,7 @@ import com.zing.zalo.zalosdk.kotlin.oauth.Constant
 import com.zing.zalo.zalosdk.kotlin.oauth.IAuthenticateCompleteListener
 import com.zing.zalo.zalosdk.kotlin.oauth.LoginVia
 import com.zing.zalo.zalosdk.kotlin.oauth.ZaloSDK
+import com.zing.zalo.zalosdk.kotlin.oauth.callback.ValidateOAuthCodeCallback
 import com.zing.zalo.zalosdk.kotlin.oauth.model.ErrorResponse
 import com.zing.zalo.zalosdk.kotlin.openapi.ZaloOpenApi;
 import com.zing.zalo.zalosdk.kotlin.openapi.ZaloOpenApiCallback
@@ -39,38 +40,17 @@ class ZaloLogin : Plugin() {
         zaloSDK.authenticate(activity, viaEnum, authenticateListener);
     }
 
-    private val authenticateListener = object : IAuthenticateCompleteListener {
-        override fun onAuthenticateSuccess(uid: Long, code: String, data: Map<String, Any>) {
-            if (savedLastCall == null) {
-                return;
-            }
-            val openApi = ZaloOpenApi(context, code);
-            val fields = arrayOf("id", "birthday", "gender", "picture", "name");
-            openApi.getProfile(fields, getProfileListener);
-        }
-
-        override fun onAuthenticateError(errorCode: Int, message: String) {
-            if (savedLastCall == null) {
-                return;
-            }
-            savedLastCall.reject(message);
-        }
-
-        override fun onAuthenticateError(errorCode: Int, errorMsg: String?, errorResponse: ErrorResponse) {
-            if (savedLastCall == null) {
-                return;
-            }
-            savedLastCall.reject(errorMsg);
-        }
+    @PluginMethod
+    fun logout(call: PluginCall) {
+        zaloSDK.unAuthenticate();
+        call.resolve();
     }
 
-    private val getProfileListener = object : ZaloOpenApiCallback {
-        override fun onResult(data: JSONObject?) {
-            if (savedLastCall == null) {
-                return;
-            }
-            savedLastCall.resolve(JSObject.fromJSONObject(data));
-        }
+    @PluginMethod
+    fun getProfile(call: PluginCall) {
+        saveCall(call);
+        val fields = arrayOf("id", "birthday", "gender", "picture", "name");
+        getOpenApiInstance().getProfile(fields, getProfileListener);
     }
 
     @PluginMethod
@@ -88,6 +68,58 @@ class ZaloLogin : Plugin() {
                 call.reject("Signature is not available.");
             }
         }
+    }
+
+//    private val isAuthenticateListener = object : ValidateOAuthCodeCallback {
+//        override fun onValidateComplete(validated: Boolean, errorCode: Int, userId: Long, authCode: String?) {
+//            if (validated) {
+//
+//            }
+//        }
+//    }
+
+    private val authenticateListener = object : IAuthenticateCompleteListener {
+        override fun onAuthenticateSuccess(uid: Long, code: String, data: Map<String, Any>) {
+            if (savedLastCall == null) {
+                return;
+            }
+            getProfile(savedLastCall);
+        }
+
+        override fun onAuthenticateError(errorCode: Int, message: String) {
+            if (savedLastCall == null) {
+                return;
+            }
+            savedLastCall.reject(message.ifEmpty { "User rejected." }, errorCode.toString());
+        }
+
+        override fun onAuthenticateError(errorCode: Int, errorMsg: String?, errorResponse: ErrorResponse) {
+            if (savedLastCall == null) {
+                return;
+            }
+            savedLastCall.reject(errorMsg, errorCode.toString());
+        }
+    }
+
+    private val getProfileListener = object : ZaloOpenApiCallback {
+        override fun onResult(jsonData: JSONObject?) {
+            if (savedLastCall == null) {
+                return;
+            }
+            if (jsonData?.has("error")!!) {
+                return savedLastCall.reject(
+                        if (jsonData.has("message")) jsonData.getString("message") else "Can not get profile.",
+                        jsonData.getString("error")
+                )
+            }
+            val jsData = JSObject.fromJSONObject(jsonData);
+            jsData.put("oauthCode", zaloSDK.getOauthCode());
+            savedLastCall.resolve(jsData);
+        }
+    }
+
+    private fun getOpenApiInstance(): ZaloOpenApi {
+        return ZaloOpenApi(context, zaloSDK.getOauthCode());
     }
 
     override fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

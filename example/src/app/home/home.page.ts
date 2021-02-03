@@ -2,17 +2,24 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { ToastController } from '@ionic/angular';
 import { IZaloUser } from 'capacitor-zalo-login';
-
+import { OnInit } from '@angular/core';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   response?: any;
+  canGetHashKey = false;
+
   constructor(
     private toastCtrl: ToastController,
   ) { }
+
+  async ngOnInit() {
+    const info = await Plugins.Device.getInfo();
+    this.canGetHashKey = info.operatingSystem === 'android';
+  }
 
   login() {
     this.response = {};
@@ -34,6 +41,14 @@ export class HomePage {
     this.response = {};
     Plugins.ZaloLogin
       .getProfile()
+      .then(r => this.onSuccess(r))
+      .catch(e => this.onError(e));
+  }
+
+  getHashKey() {
+    this.response = {};
+    Plugins.ZaloLogin
+      .getApplicationHashKey()
       .then(r => this.onSuccess(r))
       .catch(e => this.onError(e));
   }
