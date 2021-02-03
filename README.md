@@ -50,7 +50,6 @@ public void onCreate(Bundle savedInstanceState) {
 - Open your `ios/App/App/info.plist`. Add `ZaloAppId`:
 ```plist
 <dict>
-    ...
 	<key>ZaloAppId</key>
 	<string>YOUR_ZaloAppId</string>
 </dict>
