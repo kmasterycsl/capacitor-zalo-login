@@ -6,4 +6,5 @@
 CAP_PLUGIN(ZaloLogin, "ZaloLogin",
            CAP_PLUGIN_METHOD(login, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(logout, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(getProfile, CAPPluginReturnPromise);
 )

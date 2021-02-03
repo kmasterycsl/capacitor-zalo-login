@@ -19,9 +19,11 @@ export interface IZaloUser {
       url: string;
     }
   };
+  oauthCode?: string;
 }
 export interface ZaloLoginPlugin {
   login(options?: { loginVia: LoginVia }): Promise<IZaloUser>;
+  getProfile(): Promise<IZaloUser>;
   logout(): Promise<void>;
   getApplicationHashKey(): Promise<{ signature: string }>;
 }

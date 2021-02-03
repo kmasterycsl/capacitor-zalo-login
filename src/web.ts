@@ -13,6 +13,10 @@ export class ZaloLoginWeb extends WebPlugin implements ZaloLoginPlugin {
   login(options?: { loginVia: LoginVia }): Promise<IZaloUser> {
     return Promise.reject(`Web implementation is not available now.`);
   }
+  
+  getProfile(): Promise<IZaloUser> {
+    return Promise.reject(`Web implementation is not available now.`);
+  }
 
   logout(): Promise<void> {
     return Promise.reject(`Web implementation is not available now.`);

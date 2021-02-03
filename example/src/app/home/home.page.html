@@ -16,11 +16,13 @@
   </ion-header>
 
   <div id="container">
-    <ion-button *ngIf="!zaloUser" (click)="login()">Tap to login Zalo</ion-button>
-    <ion-button *ngIf="zaloUser" (click)="logout()">Tap to logout Zalo</ion-button>
+    <ion-button (click)="login()">Login</ion-button>
+    <ion-button (click)="logout()">Logout</ion-button>
+    <ion-button (click)="getProfile()">Get profile</ion-button>
+    <ion-button (click)="clearOutput()">Clear output</ion-button>
     <div>
       <code>
-        {{ zaloUser | json }}
+        {{ response | json }}
       </code>
     </div>
   </div>

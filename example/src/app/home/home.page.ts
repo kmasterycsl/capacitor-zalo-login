@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { ToastController } from '@ionic/angular';
 import { IZaloUser } from 'capacitor-zalo-login';
@@ -9,48 +9,50 @@ import { IZaloUser } from 'capacitor-zalo-login';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  zaloUser?: IZaloUser;
+  response?: any;
   constructor(
     private toastCtrl: ToastController,
-  ) {}
+  ) { }
 
   login() {
+    this.response = {};
     Plugins.ZaloLogin
       .login()
-      .then(zaloUser => {
-        this.zaloUser = zaloUser;
-      })
-      .catch(e => {
-        this.toastCtrl.create({
-          message: e.message,
-          color: 'danger',
-          duration: 2000
-        }).then(t => t.present());
-
-        console.error('zaloLogin error:', e)
-      });
+      .then(r => this.onSuccess(r))
+      .catch(e => this.onError(e));
   }
 
   logout() {
+    this.response = {};
     Plugins.ZaloLogin
-    .logout()
-    .then(() => {
-      this.zaloUser = null;
-      this.toastCtrl.create({
-        message: 'Logout ok',
-        color: 'primary',
-        duration: 2000
-      }).then(t => t.present());
-    })
-    .catch(e => {
-      this.toastCtrl.create({
-        message: e.message,
-        color: 'danger',
-        duration: 2000
-      }).then(t => t.present());
-
-      console.error('zaloLogout error:', e)
-    });
+      .logout()
+      .then(r => this.onSuccess(r))
+      .catch(e => this.onError(e));
   }
 
+  getProfile() {
+    this.response = {};
+    Plugins.ZaloLogin
+      .getProfile()
+      .then(r => this.onSuccess(r))
+      .catch(e => this.onError(e));
+  }
+
+  clearOutput() {
+    this.response = {};
+  }
+
+  private onSuccess(res) {
+    this.response = res;
+  }
+
+  private onError(e) {
+    this.toastCtrl.create({
+      message: e.message,
+      color: 'danger',
+      duration: 2000
+    }).then(t => t.present());
+
+    console.error('error:', e)
+  }
 }
