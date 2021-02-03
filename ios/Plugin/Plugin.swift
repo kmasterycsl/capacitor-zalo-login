@@ -53,6 +53,10 @@ public class ZaloLogin: CAPPlugin {
         }
     }
     
+    @objc func getApplicationHashKey(_  call: CAPPluginCall) {
+        call.reject("getApplicationHashKey not available for iOS platform.");
+    }
+    
     func onAuthenticateComplete(with response: ZOOauthResponseObject?, call: CAPPluginCall) {
         if response?.isSucess == true {
             zaloSDK?.getZaloUserProfile(callback: { (profileResponse) in
