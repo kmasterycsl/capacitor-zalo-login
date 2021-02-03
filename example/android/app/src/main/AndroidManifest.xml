@@ -31,6 +31,10 @@
 
         </activity>
 
+         <meta-data
+          android:name="com.zing.zalo.zalosdk.appID"
+          android:value="@string/zalosdk_app_id" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

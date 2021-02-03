@@ -1,14 +1,33 @@
 # capacitor-zalo-login
-## Prerequisite
-- Register developer account, visit: https://developers.zalo.me.
-- After that create new app, activate. Remember `ZaloAppId`.
+Capacitory community plugin for Zalo Login.
+
+## Installation
+WIP
 
 ## Demo
-- Inside /example folder.
+- See inside /example folder.
+
+## Prerequisites
+- Register developer account, visit: https://developers.zalo.me.
+- Then create new app, activate. Remember `ZaloAppId` value.
 
 ## For Android
 - In Zalo developer page -> products -> login -> android -> add your app's packageName, hashKey.
-- In your `android/app/src/main/java/io/ionic/starter/MainActivity.java` add `ZaloLogin` class
+- Update `android/src/main/res/values/strings.xml` add values
+```
+<string name="zalosdk_app_id" translatable="false">ZaloAppId</string>
+<string name="zalosdk_login_protocol_schema" translatable="false">zalo-ZaloAppId</string>
+```
+- Update `example/android/app/src/main/AndroidManifest.xml` add meta-data
+```
+<application>
+    ...
+    <meta-data
+        android:name="com.zing.zalo.zalosdk.appID"
+        android:value="@string/zalosdk_app_id" />
+</application>
+```
+- Update `android/app/src/main/java/io/ionic/starter/MainActivity.java` add `ZaloLogin` class
 
 ```
 
@@ -25,6 +44,7 @@ public void onCreate(Bundle savedInstanceState) {
     }});
   }
 ```
+- For more information visit https://developers.zalo.me/docs/sdk/android-sdk-8
 ## For IOS
 - In Zalo developer page -> products -> login -> ios -> add your app's bundleId.
 - Open your `ios/App/App/info.plist`. Add `ZaloAppId`:
@@ -40,6 +60,15 @@ public void onCreate(Bundle savedInstanceState) {
 ## For Web
 WIP
 
+## Supported methods
+
+| Name                  | Android | iOS | Web |
+| :-------------------- | :------ | :-- | :-- |
+| login                 | ✅      | ✅  | WIP |
+| getProfile            | ✅      | ✅  | WIP |
+| logout                | ✅      | ✅  | WIP |
+| getApplicationHashKey | ✅      | ❌  | WIP |
+
 ## API
 ### Login
 ```
@@ -49,9 +78,16 @@ Plugins.ZaloLogin
     .login()
     .then(zaloUser => {
         console.log(zaloUser);
-    })
-    .catch(e => {
-        console.error('zaloLogin error:', e)
+    });
+```
+### User profile
+```
+import { Plugins } from '@capacitor/core';
+
+Plugins.ZaloLogin
+    .getProfile()
+    .then(zaloUser => {
+        console.log(zaloUser);
     });
 ```
 
@@ -61,4 +97,15 @@ Plugins.ZaloLogin
 import { Plugins } from '@capacitor/core';
 
 Plugins.ZaloLogin.logout()
+```
+
+### Get application hashkey
+```
+import { Plugins } from '@capacitor/core';
+
+Plugins.ZaloLogin
+    .getApplicationHashKey()
+    .then(hashKey => {
+        console.log(hashKey);
+    });
 ```
