@@ -9,17 +9,17 @@ WIP
 
 ## Prerequisites
 - Register developer account, visit: https://developers.zalo.me.
-- Then create new app, activate. Remember `ZaloAppId` value.
+- Then create new app, activate. Remember `YOUR_ZaloAppId` value.
 
 ## For Android
 - In Zalo developer page -> products -> login -> android -> add your app's packageName, hashKey.
 - Update `android/src/main/res/values/strings.xml` add values
-```
-<string name="zalosdk_app_id" translatable="false">ZaloAppId</string>
-<string name="zalosdk_login_protocol_schema" translatable="false">zalo-ZaloAppId</string>
+```xml
+<string name="zalosdk_app_id" translatable="false">YOUR_ZaloAppId</string>
+<string name="zalosdk_login_protocol_schema" translatable="false">zalo-YOUR_ZaloAppId</string>
 ```
 - Update `example/android/app/src/main/AndroidManifest.xml` add meta-data
-```
+```xml
 <application>
     ...
     <meta-data
@@ -29,7 +29,7 @@ WIP
 ```
 - Update `android/app/src/main/java/io/ionic/starter/MainActivity.java` add `ZaloLogin` class
 
-```
+```java
 
 import com.khanhtran.capacitorplugins.zalologin.ZaloLogin;
 
@@ -48,11 +48,11 @@ public void onCreate(Bundle savedInstanceState) {
 ## For IOS
 - In Zalo developer page -> products -> login -> ios -> add your app's bundleId.
 - Open your `ios/App/App/info.plist`. Add `ZaloAppId`:
-```
+```plist
 <dict>
     ...
 	<key>ZaloAppId</key>
-	<string>xxxxxxxxxxxxxx</string>
+	<string>YOUR_ZaloAppId</string>
 </dict>
 ```
 - For more information visit https://developers.zalo.me/docs/sdk/ios-sdk/tich-hop/xcode-post-460
@@ -71,7 +71,7 @@ WIP
 
 ## API
 ### Login
-```
+```ts
 import { Plugins } from '@capacitor/core';
 
 Plugins.ZaloLogin
@@ -81,7 +81,7 @@ Plugins.ZaloLogin
     });
 ```
 ### User profile
-```
+```ts
 import { Plugins } from '@capacitor/core';
 
 Plugins.ZaloLogin
@@ -91,16 +91,15 @@ Plugins.ZaloLogin
     });
 ```
 
-
 ### Logout
-```
+```ts
 import { Plugins } from '@capacitor/core';
 
 Plugins.ZaloLogin.logout()
 ```
 
 ### Get application hashkey
-```
+```ts
 import { Plugins } from '@capacitor/core';
 
 Plugins.ZaloLogin
