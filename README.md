@@ -48,7 +48,7 @@ public void onCreate(Bundle savedInstanceState) {
 ## For IOS
 - In Zalo developer page -> products -> login -> ios -> add your app's bundleId.
 - Open your `ios/App/App/info.plist`. Add `ZaloAppId`:
-```plist
+```
 <dict>
 	<key>ZaloAppId</key>
 	<string>YOUR_ZaloAppId</string>
